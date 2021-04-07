@@ -1,0 +1,36 @@
+<div class="page">
+    <section>
+        <div class="thumbnail-preview">
+            <img *ngIf="image" [src]="image.url" alt="Post Image" id="image">
+        </div>
+
+        <form>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" [(ngModel)]="formData.title">
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select name="category" id="category" [(ngModel)]="formData.category">
+                    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="thumbnail">Thumbnail</label>
+                <select name="thumbnail" id="thumbnail" [(ngModel)]="formData.thumbnail" (change)="updateImage(formData.thumbnail)">
+                    <option *ngFor="let id of imageIDs" [value]="id">{{ id }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="body">Body</label>
+                <textarea type="text" name="body" id="body" [(ngModel)]="formData.body"></textarea>
+                <div *ngIf="loading" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            </div>
+            <div class="button-group">
+                <button matRipple type="button" (click)="autoFillForm()">Autofill</button>
+                <button matRipple type="button" (click)="publish()">Publish</button>
+            </div>
+        </form>
+    
+    </section>
+</div>

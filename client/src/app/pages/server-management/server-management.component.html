@@ -1,0 +1,42 @@
+<div class="page">
+    <h1>Server Management</h1>
+    <div class="exectables">
+        <div class="service" (dblclick)="start('isak_tech')" cdkDragBoundary=".exectables" cdkDrag>
+            <div class="logo">
+                IT
+            </div>
+            <span>isak tech</span>
+        </div>
+        <div class="service" (dblclick)="start('portal')" cdkDragBoundary=".exectables" cdkDrag>
+            <div class="logo">PR</div>
+            <span>portal</span>
+        </div>
+        <div class="service" (dblclick)="start('paste')" cdkDragBoundary=".exectables" cdkDrag>
+            <div class="logo">PS</div>
+            <span>paste</span>
+        </div>
+    </div>
+
+    <section>
+        <div class="table" *ngIf="processes && processes.length > 0">
+            <div class="table-head">
+                <div class="table-row">
+                    <div class="table-data">PID</div>
+                    <div class="table-data">Label</div>
+                    <div class="table-data">Started</div>
+                    <div class="table-data">Domain</div>
+                    <div class="table-data">Dev Server</div>
+                </div>
+            </div>
+            <div class="table-body">
+                <div class="table-row" *ngFor="let row of processes" (click)="kill(row.Service.ProcessID)" matTooltip="Kill Process">
+                    <div class="table-data">{{ row.Service.ProcessID }}</div>
+                    <div class="table-data">{{ row.Service.Label }}</div>
+                    <div class="table-data">{{ row.Service.Started | date: 'medium' }}</div>
+                    <div class="table-data">{{ row.Config.Domain }}</div>
+                    <div class="table-data">{{ row.Config.ServerAddr }}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

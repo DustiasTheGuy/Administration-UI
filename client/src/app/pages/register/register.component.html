@@ -1,0 +1,22 @@
+<div class="page">
+    <form>
+        <h2 class="form-title">Sign Up</h2>
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" [(ngModel)]="formData.email" (keyup.enter)="register()">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" [(ngModel)]="formData.password" (keyup.enter)="register()">
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="formData.confirmPassword" (keyup.enter)="register()">
+            <a routerLink="/sign-in">Already have an account?</a>
+        </div>
+        <div class="button-group">
+            <span></span>
+            <button matRipple type="button" (click)="register()">Create Account</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,12 @@
+.page {
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   height: 100%;
+   width: 100%;
+
+   form {
+      margin-right: 300px;
+      width: 400px;
+   }
+}

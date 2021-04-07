@@ -1,0 +1,18 @@
+.file-upload {
+    height: 200px;
+    border: 1px solid lightgray;
+    margin-bottom: 50px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    i {
+        font-size: 4rem;
+        color: #6e6e6e;
+    }
+}
+
+.file-upload.file-over {
+    background-color: rgb(214, 214, 214);
+}

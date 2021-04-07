@@ -1,0 +1,8 @@
+<div class="container" [ngClass]="{ 'signed-in': authService.tokenValid(), 'not-signed-in': !authService.tokenValid() }">
+  <app-navigation *ngIf="authService.tokenValid()"></app-navigation>
+
+  <main>
+    <router-outlet></router-outlet>
+    <app-alert></app-alert>
+  </main>
+</div>

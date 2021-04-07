@@ -1,0 +1,3 @@
+<div matRipple class="alert" [ngClass]="{ 'show': alert.show, 'error': alert.error, 'success': !alert.error }" (click)="alert.show = false">
+    <p>{{ alert.text }}</p>
+</div>

@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend&family=Oswald:wght@400;600;700&family=Roboto&family=Titillium+Web&display=swap');
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+/*
+    font-family: 'Lexend', sans-serif;
+    font-family: 'Oswald', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Titillium Web', sans-serif;
+*/
+
+* {
+    box-sizing: border-box;
+
+    &::-webkit-scrollbar {
+        background-color: #ebebeb;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #7683B8;
+    }
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Titillium Web', sans-serif;
+    background-color: rgb(61, 61, 219);
+}
+
+button {
+    outline: none;
+}

@@ -1,0 +1,37 @@
+<div class="container" [ngClass]="{ 'open': asideOpen }">
+    <aside>
+        <div class="aside-content">
+            <div class="aside-content-group">
+                <img src="/assets/logo.svg">
+            </div>
+
+            <div class="aside-content-group" *ngIf="!authService.tokenValid()">
+                <a matRipple routerLink="/sign-up" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><i class="fas fa-user-plus"></i> Register</a>
+                <a matRipple routerLink="/sign-in" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><i class="fas fa-sign-in-alt"></i> Log In</a>
+            </div>
+
+            <div class="aside-content-group" *ngIf="authService.tokenValid()">
+                <a matRipple routerLink="/dashboard" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><i class="fas fa-chart-line"></i> Dashboard</a>
+                <a matRipple routerLink="/settings" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><i class="fas fa-cog"></i> Settings</a>
+                <a matRipple routerLink="/server-management" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><i class="fas fa-server"></i> Management</a>
+                <a matRipple routerLink="/users" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><i class="fas fa-users"></i> Users</a>
+            </div>
+
+            <div class="aside-content-group" *ngIf="authService.tokenValid()">
+                <a matRipple routerLink="/publish" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><i class="far fa-edit"></i> Publish</a>
+                <a matRipple routerLink="/image-management" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><i class="far fa-images"></i> Images</a>
+                <a matRipple routerLink="/browse" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><i class="fas fa-list"></i> Browse</a>
+            </div>
+
+            <div class="aside-content-group" *ngIf="authService.tokenValid()">
+                <a matRipple (click)="logout()"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<div class="toggle-aside" (click)="asideOpen = !asideOpen ? true : false">
+    <i class="fas fa-bars"></i>  
+</div>
+
+<div class="filler" [ngClass]="{ 'visible': asideOpen }" (click)="asideOpen = false"></div>

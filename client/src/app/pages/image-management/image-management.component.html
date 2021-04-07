@@ -1,0 +1,15 @@
+<div class="page">
+    <div class="header">
+        <app-file-upload></app-file-upload>
+    </div>
+
+    <div class="gallery" *ngIf="images">
+        <img 
+        *ngFor="let img of images" 
+        [src]="img.url" 
+        [alt]="'image ' + img.id" 
+        [matTooltip]="'ID: ' + img.id"
+        (click)="deleteImage(img.id)"
+        matTooltipPosition="above">
+    </div>
+</div>
