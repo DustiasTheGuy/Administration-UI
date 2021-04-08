@@ -2,7 +2,11 @@
   <app-navigation *ngIf="authService.tokenValid()"></app-navigation>
 
   <main>
-    <router-outlet></router-outlet>
-    <app-alert></app-alert>
+    <app-toolbar></app-toolbar>
+
+    <div class="main-content">
+      <app-alert></app-alert>
+      <router-outlet></router-outlet>
+    </div>
   </main>
 </div>

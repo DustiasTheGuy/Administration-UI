@@ -26,6 +26,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UsersComponent } from './pages/users/users.component';
 import { EditUserFormComponent } from './components/edit-user-form/edit-user-form.component';
 import { EditUserComponent } from './pages/users/edit/edit.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { EditUserComponent } from './pages/users/edit/edit.component';
     DashboardComponent,
     UsersComponent,
     EditUserFormComponent,
-    EditUserComponent
+    EditUserComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,

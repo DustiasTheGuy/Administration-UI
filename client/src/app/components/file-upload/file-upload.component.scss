@@ -1,11 +1,12 @@
 .file-upload {
     height: 200px;
-    border: 1px solid lightgray;
     margin-bottom: 50px;
-    border-radius: 25px;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #fff;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
     i {
         font-size: 4rem;

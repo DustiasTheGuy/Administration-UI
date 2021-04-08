@@ -1,6 +1,8 @@
 .container.signed-in {
     main {
-        padding: 50px;
+        .main-content {
+            padding: 50px;
+        }
     }
 }
 
@@ -37,9 +39,12 @@
 @media (max-width: 999px) {
     .container.not-signed-in {
         main {
-            padding: 20px;
             background-image: none;
             background-color: #3d3ddb;
+
+            .main-content {
+                padding: 20px;
+            }
         }
     }
 }

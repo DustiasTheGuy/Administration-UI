@@ -6,7 +6,16 @@
    width: 100%;
 
    form {
-      margin-right: 300px;
-      width: 400px;
+      width: 30%;
+      margin-right: 120px;
+   }
+}
+
+@media (max-width:999px) {
+   .page {
+      form {
+         width: 98%;
+         margin-right: 0;
+      }
    }
 }
