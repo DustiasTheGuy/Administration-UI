@@ -1,4 +1,4 @@
-package users
+package post
 
 import (
 	"admin/controllers"
@@ -14,7 +14,7 @@ func PublishController(c *fiber.Ctx) error {
 	var publishData post.Post
 	user := user.User{Email: c.Get("email")}
 
-	if err := user.GetUserWithEmail(); err != nil {
+	if err := user.Find(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
 			Message: fmt.Sprintf("%v", err),
 			Success: false,
@@ -33,7 +33,7 @@ func PublishController(c *fiber.Ctx) error {
 	}
 
 	publishData.UserID = user.ID
-	if err := publishData.SavePost(); err != nil {
+	if err := publishData.Save(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
 			Message: fmt.Sprintf("%v", err),
 			Success: false,
@@ -59,7 +59,7 @@ func UpdateOnePostController(c *fiber.Ctx) error {
 		})
 	}
 
-	if err := post.UpdateOnePost(); err != nil {
+	if err := post.Update(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
 			Message: fmt.Sprintf("%v", err),
 			Success: false,
@@ -86,7 +86,7 @@ func DeleteOnePostController(c *fiber.Ctx) error {
 	}
 
 	post := post.Post{ID: id}
-	if err := post.DeleteOnePost(); err != nil {
+	if err := post.Delete(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
 			Message: fmt.Sprintf("%v", err),
 			Success: false,
@@ -102,7 +102,7 @@ func DeleteOnePostController(c *fiber.Ctx) error {
 }
 
 func FindAllPostsController(c *fiber.Ctx) error {
-	posts, err := post.FindAllPosts()
+	posts, err := post.All()
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
@@ -131,7 +131,7 @@ func FindOnePostController(c *fiber.Ctx) error {
 	}
 
 	post := post.Post{ID: id}
-	post.FindOnePost()
+	post.Find()
 
 	return c.JSON(controllers.HTTPResponse{
 		Message: "",

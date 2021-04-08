@@ -18,8 +18,9 @@ export class PostService {
     'Uncategorized'
   ];
   
+
   constructor(private httpClient: HttpClient) {
-    this.config = new Config('/users');
+    this.config = new Config('/api/post');
   }
 
   public publish(data: PublishData): Observable<HTTPResponse> {

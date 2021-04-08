@@ -87,7 +87,8 @@ func (u *User) Register() error {
 	return utils.OnResult(result)
 }
 
-func (u *User) GetUserWithEmail() error {
+// find one row with email
+func (u *User) Find() error {
 	db := database.Connect(&database.SQLConfig{
 		User:     "root",
 		Password: "password",
@@ -108,7 +109,8 @@ func (u *User) GetUserWithEmail() error {
 	return nil
 }
 
-func GetAllUsers() ([]User, error) {
+// find all users
+func All() ([]User, error) {
 	db := database.Connect(&database.SQLConfig{
 		User:     "root",
 		Password: "password",
@@ -140,7 +142,8 @@ func GetAllUsers() ([]User, error) {
 	return users, nil
 }
 
-func (u *User) DeleteOneUser() error {
+// delete a single row in database
+func (u *User) Delete() error {
 	db := database.Connect(&database.SQLConfig{
 		User:     "root",
 		Password: "password",
@@ -157,7 +160,8 @@ func (u *User) DeleteOneUser() error {
 	return utils.OnResult(result)
 }
 
-func (u *User) UpdateOneUser(updatePassword bool) error {
+// update a single row
+func (u *User) Update(updatePassword bool) error {
 	if !utils.ValidateEmail(u.Email) {
 		return errors.New("email validation failed")
 	}

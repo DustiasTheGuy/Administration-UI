@@ -2,7 +2,10 @@ package main
 
 import (
 	"admin/controllers"
+	"admin/controllers/image"
 	"admin/controllers/index"
+	"admin/controllers/post"
+	"admin/controllers/services"
 	"admin/controllers/users"
 	"admin/utils"
 	"log"
@@ -18,27 +21,32 @@ func main() {
 
 	app.Post("/login", index.LoginController)
 	app.Post("/register", index.RegisterController)
-	app.Get("/image/:id", index.ImageGETController)
-	app.Get("/images", index.ImagesGETController)
 
-	usersRouter := app.Group("/users", usersMiddleware)
-	usersRouter.Get("/start/:service", users.StartServiceController)
-	usersRouter.Get("/stop/:pid", users.StopServiceController)
-	usersRouter.Get("/get-processes", users.GetProcessesController)
-	usersRouter.Get("/profile", users.GetUserController)
-	usersRouter.Post("/publish", users.PublishController)
-	usersRouter.Post("/upload", users.UploadImageController)
-	usersRouter.Delete("/delete-image/:id", users.DeleteOneImageController)
-	usersRouter.Get("/image-ids", users.GetImageIDsController)
-
-	usersRouter.Get("/get-post/:id", users.FindOnePostController)
-	usersRouter.Get("/get-posts", users.FindAllPostsController)
-	usersRouter.Delete("/delete-post/:id", users.DeleteOnePostController)
-	usersRouter.Put("/update-post", users.UpdateOnePostController)
+	usersRouter := app.Group("/api/users", usersMiddleware)
+	imageRouter := app.Group("/api/image", usersMiddleware)
+	servicesRouter := app.Group("/api/services", usersMiddleware)
+	postRouter := app.Group("/api/post", usersMiddleware)
 
 	usersRouter.Get("/get-users", users.GetUsersController)
 	usersRouter.Put("/update-user", users.UpdateUserController)
 	usersRouter.Delete("/delete-user/:id", users.DeleteUserController)
+	usersRouter.Get("/profile", users.GetUserController)
+
+	servicesRouter.Get("/start/:service", services.StartServiceController)
+	servicesRouter.Get("/stop/:pid", services.StopServiceController)
+	servicesRouter.Get("/get-processes", services.GetProcessesController)
+
+	imageRouter.Get("/images", image.ImagesGETController)
+	imageRouter.Post("/upload", image.UploadImageController)
+	imageRouter.Delete("/delete-image/:id", image.DeleteOneImageController)
+	imageRouter.Get("/image-ids", image.GetImageIDsController)
+	imageRouter.Get("/image/:id", image.ImageGETController)
+
+	postRouter.Post("/publish", post.PublishController)
+	postRouter.Get("/get-post/:id", post.FindOnePostController)
+	postRouter.Get("/get-posts", post.FindAllPostsController)
+	postRouter.Delete("/delete-post/:id", post.DeleteOnePostController)
+	postRouter.Put("/update-post", post.UpdateOnePostController)
 
 	log.Fatal(app.Listen(":8084"))
 }

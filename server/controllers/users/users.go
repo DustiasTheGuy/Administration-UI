@@ -19,7 +19,7 @@ type UpdateUserData struct {
 func GetUserController(c *fiber.Ctx) error {
 	user := user.User{Email: c.Get("email")}
 
-	if err := user.GetUserWithEmail(); err != nil {
+	if err := user.Find(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
 			Message: fmt.Sprintf("%v", err),
 			Success: false,
@@ -35,7 +35,7 @@ func GetUserController(c *fiber.Ctx) error {
 }
 
 func GetUsersController(c *fiber.Ctx) error {
-	users, err := user.GetAllUsers()
+	users, err := user.All()
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
@@ -66,7 +66,7 @@ func UpdateUserController(c *fiber.Ctx) error {
 	body.User.Password = body.Password
 	body.User.ConfirmPassword = body.ConfirmPassword
 
-	if err := body.User.UpdateOneUser(body.UpdatePassword); err != nil {
+	if err := body.User.Update(body.UpdatePassword); err != nil {
 		return c.JSON(controllers.HTTPResponse{
 			Message: fmt.Sprintf("%v", err),
 			Success: false,
@@ -93,7 +93,7 @@ func DeleteUserController(c *fiber.Ctx) error {
 	}
 
 	user := user.User{ID: id}
-	if err := user.DeleteOneUser(); err != nil {
+	if err := user.Delete(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
 			Message: fmt.Sprintf("%v", err),
 			Success: false,

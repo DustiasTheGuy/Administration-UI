@@ -16,31 +16,8 @@ type IMG struct {
 	Thumbnail int8      `json:"thumbnail"`
 }
 
-func (i *IMG) GetImageWithID() error {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech",
-	})
-	defer db.Close()
-
-	row := db.QueryRow("SELECT * FROM images WHERE id = ?", i.ID)
-
-	if err := row.Scan(
-		&i.ID,
-		&i.URL,
-		&i.Date,
-		&i.PostID,
-		&i.Thumbnail,
-	); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// SaveNewImage creates a new row in mysql
-func (i *IMG) SaveNewImage(updateThumbnail bool) error {
+// creates a new row in database
+func (i *IMG) Save(updateThumbnail bool) error {
 	db := database.Connect(&database.SQLConfig{
 		User:     "root",
 		Password: "password",
@@ -89,7 +66,8 @@ func (i *IMG) SaveNewImage(updateThumbnail bool) error {
 	return nil
 }
 
-func (i *IMG) DeleteOneWithID() error {
+// delete a row in database
+func (i *IMG) Delete() error {
 	db := database.Connect(&database.SQLConfig{
 		User:     "root",
 		Password: "password",
@@ -106,7 +84,32 @@ func (i *IMG) DeleteOneWithID() error {
 	return utils.OnResult(result)
 }
 
-func GetImageIDs() ([]int64, error) {
+// find onw row with id
+func (i *IMG) Find() error {
+	db := database.Connect(&database.SQLConfig{
+		User:     "root",
+		Password: "password",
+		Database: "isak_tech",
+	})
+	defer db.Close()
+
+	row := db.QueryRow("SELECT * FROM images WHERE id = ?", i.ID)
+
+	if err := row.Scan(
+		&i.ID,
+		&i.URL,
+		&i.Date,
+		&i.PostID,
+		&i.Thumbnail,
+	); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// select column id from images
+func GetIDs() ([]int64, error) {
 	db := database.Connect(&database.SQLConfig{
 		User:     "root",
 		Password: "password",
@@ -134,7 +137,8 @@ func GetImageIDs() ([]int64, error) {
 	return ids, nil
 }
 
-func GetAllImages() ([]IMG, error) {
+// select * from images
+func GetAll() ([]IMG, error) {
 	db := database.Connect(&database.SQLConfig{
 		User:     "root",
 		Password: "password",
@@ -168,7 +172,8 @@ func GetAllImages() ([]IMG, error) {
 	return images, nil
 }
 
-func GetImagesWithPostID(postID int64) ([]IMG, error) {
+// select all images with post_id
+func GetMany(postID int64) ([]IMG, error) {
 	db := database.Connect(&database.SQLConfig{
 		User:     "root",
 		Password: "password",
@@ -200,14 +205,4 @@ func GetImagesWithPostID(postID int64) ([]IMG, error) {
 	}
 
 	return images, nil
-}
-
-func GetPlaceholder() IMG {
-	return IMG{
-		ID:        0,
-		URL:       "http://localhost:8084/public/images/placeholder.png",
-		Date:      time.Now().UTC(),
-		PostID:    0,
-		Thumbnail: 1,
-	}
 }

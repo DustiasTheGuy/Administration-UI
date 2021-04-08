@@ -5,6 +5,14 @@ import { HTTPResponse } from '../interfaces/response';
 import { Observable } from 'rxjs';
 import { Config } from './config';
 
+
+/*
+
+  this service is used for performing http requests
+  that do not require a valid http authorization token
+
+*/
+
 @Injectable({
   providedIn: 'root'
 })

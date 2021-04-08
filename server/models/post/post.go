@@ -21,7 +21,8 @@ type Post struct {
 	Images    []image.IMG `json:"images"`
 }
 
-func (p *Post) SavePost() error {
+// create a new row in database
+func (p *Post) Save() error {
 	if len(p.Post) < 10 {
 		return errors.New("missing Field - Post")
 	} else if len(p.Title) < 10 {
@@ -54,7 +55,8 @@ func (p *Post) SavePost() error {
 	return utils.OnResult(result)
 }
 
-func (p *Post) FindOnePost() error {
+// find a single row in database with id
+func (p *Post) Find() error {
 	db := database.Connect(&database.SQLConfig{
 		User:     "root",
 		Password: "password",
@@ -77,11 +79,12 @@ func (p *Post) FindOnePost() error {
 		return err
 	}
 
-	p.GetPostImages()
+	p.GetIMGs()
 	return nil
 }
 
-func FindAllPosts() ([]Post, error) {
+// find all rows in database
+func All() ([]Post, error) {
 	db := database.Connect(&database.SQLConfig{
 		User:     "root",
 		Password: "password",
@@ -112,14 +115,15 @@ func FindAllPosts() ([]Post, error) {
 			return nil, err
 		}
 
-		post.GetPostImages()
+		post.GetIMGs()
 		posts = append(posts, post)
 	}
 
 	return posts, nil
 }
 
-func (p *Post) DeleteOnePost() error {
+// delete one row in database with id
+func (p *Post) Delete() error {
 	db := database.Connect(&database.SQLConfig{
 		User:     "root",
 		Password: "password",
@@ -136,7 +140,8 @@ func (p *Post) DeleteOnePost() error {
 	return utils.OnResult(result)
 }
 
-func (p *Post) UpdateOnePost() error {
+// update one row in database [post, title, category, thumbnail, archived] with id
+func (p *Post) Update() error {
 	fmt.Println(p)
 
 	db := database.Connect(&database.SQLConfig{
@@ -157,9 +162,10 @@ func (p *Post) UpdateOnePost() error {
 	return utils.OnResult(result)
 }
 
-func (p *Post) GetPostImages() {
+// get images by post_id field
+func (p *Post) GetIMGs() {
 	img := image.IMG{ID: p.Thumbnail}
-	err := img.GetImageWithID()
+	err := img.Find()
 
 	if err != nil {
 		p.Images = append(p.Images, image.GetPlaceholder())
@@ -167,7 +173,7 @@ func (p *Post) GetPostImages() {
 		p.Images = append(p.Images, img)
 	}
 
-	images, err := image.GetImagesWithPostID(p.ID)
+	images, err := image.GetMany(p.ID)
 	if err == nil {
 		p.Images = append(p.Images, images...)
 	}

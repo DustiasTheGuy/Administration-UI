@@ -13,30 +13,34 @@ export class ImageService {
   private config: Config;
 
   constructor(private httpClient: HttpClient) {
-    this.config = new Config();
+    this.config = new Config('/api/image');
   }
 
+
+
   public imgWithID(id: number): Observable<HTTPResponse> {
-    return this.httpClient.get<HTTPResponse>(`${this.config.serverAddr()}/image/${id}`);
+    return this.httpClient.get<HTTPResponse>(`${this.config.serverAddr()}/image/${id}`, 
+    this.config.getHeaders());
   }
 
   public images(): Observable<HTTPResponse> {
-    return this.httpClient.get<HTTPResponse>(`${this.config.serverAddr()}/images`);
+    return this.httpClient.get<HTTPResponse>(`${this.config.serverAddr()}/images`, 
+    this.config.getHeaders());
   }
 
   public uploadImage(files: FormData): Observable<HTTPResponse> {
-    return this.httpClient.post<HTTPResponse>(`${this.config.serverAddr()}/users/upload`, files, 
-    this.config.getHeaders())
+    return this.httpClient.post<HTTPResponse>(`${this.config.serverAddr()}/upload`, files, 
+    this.config.getHeaders());
   }
 
   public deleteOne(id: number): Observable<HTTPResponse> {
-    return this.httpClient.delete<HTTPResponse>(`${this.config.serverAddr()}/users/delete-image/${id}`, 
-    this.config.getHeaders())
+    return this.httpClient.delete<HTTPResponse>(`${this.config.serverAddr()}/delete-image/${id}`, 
+    this.config.getHeaders());
   }
 
   public imageIDs(): Observable<HTTPResponse> {
-    return this.httpClient.get<HTTPResponse>(`${this.config.serverAddr()}/users/image-ids`, 
-    this.config.getHeaders())
+    return this.httpClient.get<HTTPResponse>(`${this.config.serverAddr()}/image-ids`, 
+    this.config.getHeaders());
   }
 
   public appendFiles(fileList: any, post_id?: string, alone?: string): FormData {

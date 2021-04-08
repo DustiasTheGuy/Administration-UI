@@ -11,7 +11,7 @@ export class ServerService {
   private config: Config;
 
   constructor(private httpClient: HttpClient) {
-    this.config = new Config('/users');
+    this.config = new Config('/api/services');
   }
 
 
@@ -27,3 +27,10 @@ export class ServerService {
     return this.httpClient.get<HTTPResponse>(`${this.config.serverAddr()}/start/${service}`, this.config.getHeaders());
   }
 }
+
+/*
+		/api/users
+		/api/image
+		/api/services
+		/api/post
+*/

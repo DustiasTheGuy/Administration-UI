@@ -1,4 +1,4 @@
-package users
+package image
 
 import (
 	"admin/controllers"
@@ -59,7 +59,7 @@ func UploadImageController(c *fiber.Ctx) error {
 				URL:    fullURL,
 			}
 
-			if err := img.SaveNewImage(false); err != nil {
+			if err := img.Save(false); err != nil {
 				return c.JSON(controllers.HTTPResponse{
 					Message: fmt.Sprintf("%v", err),
 					Success: false,
@@ -81,8 +81,6 @@ func UploadImageController(c *fiber.Ctx) error {
 func DeleteOneImageController(c *fiber.Ctx) error {
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 
-	fmt.Println(id)
-
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
 			Message: fmt.Sprintf("%v", err),
@@ -93,7 +91,7 @@ func DeleteOneImageController(c *fiber.Ctx) error {
 
 	img := image.IMG{ID: id}
 
-	if err := img.DeleteOneWithID(); err != nil {
+	if err := img.Delete(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
 			Message: fmt.Sprintf("%v", err),
 			Success: false,
@@ -109,7 +107,7 @@ func DeleteOneImageController(c *fiber.Ctx) error {
 }
 
 func GetImageIDsController(c *fiber.Ctx) error {
-	ids, err := image.GetImageIDs()
+	ids, err := image.GetAll()
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
@@ -123,5 +121,51 @@ func GetImageIDsController(c *fiber.Ctx) error {
 		Message: "",
 		Success: true,
 		Data:    ids,
+	})
+}
+
+func ImageGETController(c *fiber.Ctx) error {
+	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
+
+	if err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
+	img := image.IMG{ID: id}
+
+	if err := img.Find(); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
+	return c.JSON(controllers.HTTPResponse{
+		Message: "",
+		Success: true,
+		Data:    img,
+	})
+}
+
+func ImagesGETController(c *fiber.Ctx) error {
+	images, err := image.GetAll()
+
+	if err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
+	return c.JSON(controllers.HTTPResponse{
+		Message: "",
+		Success: true,
+		Data:    images,
 	})
 }
