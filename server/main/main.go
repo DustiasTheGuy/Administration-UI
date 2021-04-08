@@ -15,17 +15,19 @@ import (
 )
 
 func main() {
-	app := fiber.New(fiber.Config{Immutable: true})
+	app := fiber.New(fiber.Config{
+		Immutable: true,
+	})
 	app.Use(cors.New())
 	app.Static("/public", "./public") // serve static files from /public folder
 
 	app.Post("/login", index.LoginController)
 	app.Post("/register", index.RegisterController)
 
-	usersRouter := app.Group("/api/users", usersMiddleware)
-	imageRouter := app.Group("/api/image", usersMiddleware)
-	servicesRouter := app.Group("/api/services", usersMiddleware)
-	postRouter := app.Group("/api/post", usersMiddleware)
+	usersRouter := app.Group("/api/users", jwtMiddleware)
+	servicesRouter := app.Group("/api/services", jwtMiddleware)
+	imageRouter := app.Group("/api/image", jwtMiddleware)
+	postRouter := app.Group("/api/post", jwtMiddleware)
 
 	usersRouter.Get("/get-users", users.GetUsersController)
 	usersRouter.Put("/update-user", users.UpdateUserController)
@@ -51,7 +53,7 @@ func main() {
 	log.Fatal(app.Listen(":8084"))
 }
 
-func usersMiddleware(c *fiber.Ctx) error {
+func jwtMiddleware(c *fiber.Ctx) error {
 	claims := utils.GetClaims()
 	claim, err := claims.ValidateToken(c.Get("authorization"))
 

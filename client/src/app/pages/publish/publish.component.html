@@ -1,9 +1,5 @@
 <div class="page">
     <section>
-        <div class="thumbnail-preview">
-            <img *ngIf="image" [src]="image.url" alt="Post Image" id="image">
-        </div>
-
         <form>
             <div class="form-group">
                 <label for="title">Title</label>
@@ -31,6 +27,8 @@
                 <button matRipple type="button" (click)="publish()">Publish</button>
             </div>
         </form>
-    
+        <!-- <div class="thumbnail-preview">
+            <img *ngIf="image" [src]="image.url" alt="Post Image" id="image">
+        </div> -->
     </section>
 </div>

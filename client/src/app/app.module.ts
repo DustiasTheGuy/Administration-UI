@@ -24,6 +24,7 @@ import { EditComponent } from './pages/browse/edit/edit.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UsersComponent } from './pages/users/users.component';
+import { EditUserFormComponent } from './components/edit-user-form/edit-user-form.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { UsersComponent } from './pages/users/users.component';
     EditComponent,
     FileUploadComponent,
     DashboardComponent,
-    UsersComponent
+    UsersComponent,
+    EditUserFormComponent
   ],
   imports: [
     BrowserModule,

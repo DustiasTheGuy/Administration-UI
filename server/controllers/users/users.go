@@ -65,6 +65,7 @@ func UpdateUserController(c *fiber.Ctx) error {
 
 	body.User.Password = body.Password
 	body.User.ConfirmPassword = body.ConfirmPassword
+	fmt.Println(body)
 
 	if err := body.User.Update(body.UpdatePassword); err != nil {
 		return c.JSON(controllers.HTTPResponse{

@@ -5,7 +5,6 @@ import (
 	"admin/models/image"
 	"admin/utils"
 	"errors"
-	"fmt"
 	"time"
 )
 
@@ -142,8 +141,6 @@ func (p *Post) Delete() error {
 
 // update one row in database [post, title, category, thumbnail, archived] with id
 func (p *Post) Update() error {
-	fmt.Println(p)
-
 	db := database.Connect(&database.SQLConfig{
 		User:     "root",
 		Password: "password",

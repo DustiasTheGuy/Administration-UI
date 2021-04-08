@@ -2,10 +2,6 @@
     <mat-tab-group>
         <mat-tab label="Details"> 
             <div class="tab-content">
-                <div class="thumbnail-preview">
-                    <img *ngIf="image" [src]="image.url" alt="Post Image" id="image">
-                </div>
-
                 <form>
                     <div class="form-group">
                         <label for="title">Title</label>
@@ -36,6 +32,9 @@
                         <button (click)="update()">Update</button>
                     </div>
                 </form>  
+                <!-- <div class="thumbnail-preview">
+                    <img *ngIf="image" [src]="image.url" alt="Post Image" id="image">
+                </div> -->
             </div>
         </mat-tab>
         <mat-tab label="Images"> 

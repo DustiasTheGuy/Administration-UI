@@ -19,14 +19,8 @@ export class NavigationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public logout(): void {
-    this.stateService.setErrorSubject({
-      show: true,
-      error: false,
-      text: 'See you soon!'
-    });
-    this.authService.clearToken();
+  public signOut(): void {
+    this.authService.signOut('Good Bye!');
     this.asideOpen = false;
-    this.router.navigate(["/sign-in"]);
   }
 }

@@ -1,3 +1,11 @@
 <div class="page">
     <h1>Account Settings</h1>
-</div>
+
+    <section *ngIf="loading">
+        <p>Loading...</p>
+    </section>
+
+    <section *ngIf="!loading">
+        <app-edit-user-form [user]="user"></app-edit-user-form>
+    </section>
+</div> 

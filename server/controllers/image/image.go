@@ -46,7 +46,6 @@ func UploadImageController(c *fiber.Ctx) error {
 
 		if ok { // if the file type is an image
 			if err := c.SaveFile(file, storage); err != nil { // save image to disk
-				fmt.Println(err)
 				return c.JSON(controllers.HTTPResponse{
 					Message: fmt.Sprintf("%v", err),
 					Success: false,
@@ -107,7 +106,7 @@ func DeleteOneImageController(c *fiber.Ctx) error {
 }
 
 func GetImageIDsController(c *fiber.Ctx) error {
-	ids, err := image.GetAll()
+	ids, err := image.GetIDs()
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{

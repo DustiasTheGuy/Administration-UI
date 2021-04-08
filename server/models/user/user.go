@@ -4,7 +4,6 @@ import (
 	"admin/database"
 	"admin/utils"
 	"errors"
-	"fmt"
 	"time"
 )
 
@@ -36,8 +35,6 @@ func (u *User) Login() (string, error) {
 		&user.Admin); err != nil {
 		return "", err
 	}
-
-	fmt.Println(user)
 
 	if !utils.ComparePassword(user.Password, u.Password) {
 		return "", errors.New("passwords do not match")

@@ -23,8 +23,6 @@ func PublishController(c *fiber.Ctx) error {
 	}
 
 	if err := c.BodyParser(&publishData); err != nil {
-		fmt.Println(err)
-
 		return c.JSON(controllers.HTTPResponse{
 			Message: fmt.Sprintf("%v", err),
 			Success: false,

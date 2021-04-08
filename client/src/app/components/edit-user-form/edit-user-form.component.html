@@ -1,0 +1,32 @@
+<form>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" [(ngModel)]="user.email">
+    </div>
+    <div class="form-group">
+        <label for="admin">Privileges</label>
+        <select id="admin" name="admin" [(ngModel)]="user.admin">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+    <div class="form-group" *ngIf="editPassword">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" [(ngModel)]="newPassword">
+    </div>
+    <div class="form-group" *ngIf="editPassword">
+        <label for="confirm">Confirm Password</label>
+        <input type="password" id="confirm" name="confirm" [(ngModel)]="confirmNewPassword">
+    </div>
+    <div class="form-group row">
+        <label for="edit_password">Edit Password</label>
+        <input type="checkbox" id="edit_password" name="edit_password" [(ngModel)]="editPassword">
+    </div>
+
+    <div class="button-group">
+        <span></span>
+        <button type="button" (click)="update()">Update Account</button>
+    </div>
+</form>

@@ -5,7 +5,7 @@ export interface POST {
     body: string;
     title: string;
     category: string;
-    created: string;
+    created: Date;
     archived: number;
     images: IMAGE[];
     thumbnail: number;
