@@ -8,11 +8,11 @@ import { ImageService } from 'src/app/services/image.service';
 import { IMAGE } from 'src/app/interfaces/image';
 
 @Component({
-  selector: 'app-edit',
+  selector: 'app-edit-post',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss', '../../page.scss']
 })
-export class EditComponent implements OnInit {
+export class EditPostComponent implements OnInit {
   public post?: POST
   public categories: string[];
   public image?: IMAGE;

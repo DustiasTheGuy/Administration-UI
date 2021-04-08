@@ -24,8 +24,6 @@ func LoginController(c *fiber.Ctx) error {
 		Password: body["password"],
 	}
 
-	fmt.Println(user)
-
 	jwt, err := user.Login()
 
 	if err != nil {

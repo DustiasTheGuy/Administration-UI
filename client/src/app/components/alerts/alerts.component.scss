@@ -7,10 +7,10 @@
 }
 
 .alert {
-    position: fixed;
+    position: absolute;
     left: 50px;
     right: 50px;
-    bottom: 50px;
+    top: 50px;
     padding: 40px;
     z-index: 1;
     opacity: 0;

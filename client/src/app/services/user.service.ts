@@ -35,4 +35,8 @@ export class UserService {
     this.config.getHeaders())
   }
 
+  public oneWithEmail(email: string) {
+    return this.httpClient.get<HTTPResponse>(`${this.config.serverAddr()}/with/${email}`,
+    this.config.getHeaders())
+  }
 } 

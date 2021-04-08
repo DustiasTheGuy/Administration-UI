@@ -95,6 +95,7 @@ export class PublishComponent implements OnInit {
   }
 
   public autoFillForm(): void {    
+    this.loading = true;
     this.generateText({ 
       seed: 'A woman must have money and a room of her own if she is to write fiction.', 
       length: 60, 
@@ -108,5 +109,7 @@ export class PublishComponent implements OnInit {
       temperature: 0.5, 
       updateField: 'b' 
     });
+    
+    this.loading = false;
   }
 }

@@ -23,7 +23,7 @@
                 <div *ngIf="loading" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
             </div>
             <div class="button-group">
-                <button matRipple type="button" (click)="autoFillForm()">Autofill</button>
+                <button matRipple type="button" (click)="autoFillForm()" [disabled]="loading">Autofill</button>
                 <button matRipple type="button" (click)="publish()">Publish</button>
             </div>
         </form>

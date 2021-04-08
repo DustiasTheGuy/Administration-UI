@@ -20,12 +20,12 @@ import { PublishComponent } from './pages/publish/publish.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ImageManagementComponent } from './pages/image-management/image-management.component';
 import { BrowseComponent } from './pages/browse/browse.component';
-import { EditComponent } from './pages/browse/edit/edit.component';
+import { EditPostComponent } from './pages/browse/edit/edit.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UsersComponent } from './pages/users/users.component';
 import { EditUserFormComponent } from './components/edit-user-form/edit-user-form.component';
-
+import { EditUserComponent } from './pages/users/edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -41,11 +41,12 @@ import { EditUserFormComponent } from './components/edit-user-form/edit-user-for
     ImageManagementComponent,
     BrowseComponent,
     DndDirective,
-    EditComponent,
+    EditPostComponent,
     FileUploadComponent,
     DashboardComponent,
     UsersComponent,
-    EditUserFormComponent
+    EditUserFormComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

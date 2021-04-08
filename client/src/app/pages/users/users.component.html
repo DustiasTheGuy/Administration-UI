@@ -1,3 +1,22 @@
 <div class="page">
     <h1>Users</h1>
+
+    <div class="table" *ngIf="users">
+        <div class="table-head">
+            <div class="table-row">
+                <div class="table-data">id</div>
+                <div class="table-data">email</div>
+                <div class="table-data">created</div>
+                <div class="table-data">admin</div>
+            </div>
+        </div>
+        <div class="table-body">
+            <div class="table-row" *ngFor="let user of users" (click)="navigate(user)">
+                <div class="table-data">{{ user.id }}</div>
+                <div class="table-data">{{ user.email }}</div>
+                <div class="table-data">{{ user.created | date: 'mediumDate' }}</div>
+                <div class="table-data">{{ user.admin }}</div>
+            </div>
+        </div>
+    </div>
 </div>

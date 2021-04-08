@@ -3,6 +3,7 @@ import { HTTPResponse } from 'src/app/interfaces/response';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 import { StateService } from 'src/app/services/state.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-settings',
@@ -19,6 +20,7 @@ export class SettingsComponent implements OnInit {
   
   public loading: boolean = true;
   constructor(
+    public authService: AuthService,
     private stateService: StateService,
     private userService: UserService) { }
 
@@ -42,4 +44,5 @@ export class SettingsComponent implements OnInit {
     this.emitAlert(true, err), () => 
     this.loading = false);
   }
+
 }

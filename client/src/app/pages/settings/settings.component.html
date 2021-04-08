@@ -6,6 +6,6 @@
     </section>
 
     <section *ngIf="!loading">
-        <app-edit-user-form [user]="user"></app-edit-user-form>
+        <app-edit-user-form [user]="user" (onSuccess)="authService.signOut($event)"></app-edit-user-form>
     </section>
 </div> 
