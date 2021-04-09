@@ -18,6 +18,8 @@ func ValidateEmail(e string) bool {
 }
 
 func PermissionApproval(required int64, attainedAsString string) error {
+	fmt.Printf("Required: %d\nAttained: %s\n", required, attainedAsString)
+
 	attained, err := strconv.ParseInt(attainedAsString, 10, 64)
 
 	if err != nil {

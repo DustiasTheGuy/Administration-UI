@@ -158,11 +158,7 @@ func (u *User) Delete() error {
 }
 
 // update a single row
-func (u *User) Update(updatePassword bool) error {
-	if !utils.ValidateEmail(u.Email) {
-		return errors.New("email validation failed")
-	}
-
+func (u *UpdateUserData) Update() error {
 	db := database.Connect(&database.SQLConfig{
 		User:     "root",
 		Password: "password",
@@ -170,25 +166,28 @@ func (u *User) Update(updatePassword bool) error {
 	})
 	defer db.Close()
 
-	if updatePassword {
-		hash, err := utils.HashPassword(u.Password)
+	if u.Config.EditPassword {
 
-		if err != nil {
-			return err
+		if u.NewData.Password != u.NewData.ConfirmPassword {
+			return errors.New("passwords do not match")
+		} else {
+			hash, err := utils.HashPassword(u.NewData.Password)
+
+			if err != nil {
+				return err
+			}
+
+			result, err := db.Exec("UPDATE users SET email = ?, password = ? WHERE id = ?", u.NewData.Email, hash, u.OldData.ID)
+
+			if err != nil {
+				return err
+			}
+
+			return utils.OnResult(result)
 		}
-
-		result, err := db.Exec("UPDATE users SET email = ?, created = ?, admin = ?, password = ? WHERE id = ?",
-			u.Email, u.Created, u.Admin, hash, u.ID)
-
-		if err != nil {
-			return err
-		}
-
-		return utils.OnResult(result)
 
 	} else {
-		result, err := db.Exec("UPDATE users SET email = ?, created = ?, admin = ? WHERE id = ?",
-			u.Email, u.Created, u.Admin, u.ID)
+		result, err := db.Exec("UPDATE users SET email = ? WHERE id = ?", u.NewData.Email, u.OldData.ID)
 
 		if err != nil {
 			return err
@@ -196,4 +195,20 @@ func (u *User) Update(updatePassword bool) error {
 
 		return utils.OnResult(result)
 	}
+}
+
+type UpdateUserConfig struct {
+	EditPassword bool `json:"editPassword"`
+}
+
+type UpdateUserNewData struct {
+	Email           string `json:"email"`
+	Password        string `json:"password"`
+	ConfirmPassword string `json:"confirmPassword"`
+}
+
+type UpdateUserData struct {
+	Config  UpdateUserConfig  `json:"config"`
+	NewData UpdateUserNewData `json:"newData"`
+	OldData User              `json:"oldData"`
 }

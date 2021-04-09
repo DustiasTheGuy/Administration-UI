@@ -1,11 +1,36 @@
 <form>
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="text" id="email" name="email" [(ngModel)]="user.email">
+        <input type="text" id="email" name="email" [(ngModel)]="newData.email">
     </div>
+
+    <div class="sub-form" [ngClass]="{ 'show': config.editPassword }">
+        <div class="form-group">
+            <label for="password">New Password</label>
+            <input type="password" id="password" name="password" [(ngModel)]="newData.password">
+        </div>
+        <div class="form-group">
+            <label for="confirm">Confirm New Password</label>
+            <input type="password" id="confirm" name="confirm" [(ngModel)]="newData.confirmPassword">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="edit_password">Edit Password</label>
+        <input type="checkbox" id="edit_password" name="edit_password" [(ngModel)]="config.editPassword">
+    </div>
+
+    <div class="button-group">
+        <span></span>
+        <button type="button" (click)="update()">Update Account</button>
+    </div>
+</form>
+
+
+<form>
     <div class="form-group">
         <label for="admin">Privileges</label>
-        <select id="admin" name="admin" [(ngModel)]="user.admin">
+        <select id="admin" name="admin" [(ngModel)]="privileges">
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -13,24 +38,8 @@
         </select>
     </div>
 
-    <div class="sub-form" [ngClass]="{ 'show': editPassword }">
-        <div class="form-group">
-            <label for="password">New Password</label>
-            <input type="password" id="password" name="password" [(ngModel)]="newPassword">
-        </div>
-        <div class="form-group">
-            <label for="confirm">Confirm New Password</label>
-            <input type="password" id="confirm" name="confirm" [(ngModel)]="confirmNewPassword">
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="edit_password">Edit Password</label>
-        <input type="checkbox" id="edit_password" name="edit_password" [(ngModel)]="editPassword">
-    </div>
-
     <div class="button-group">
         <span></span>
-        <button type="button" (click)="update()">Update Account</button>
+        <button type="button" (click)="updatePrivileges()">Update Privileges</button>
     </div>
 </form>
