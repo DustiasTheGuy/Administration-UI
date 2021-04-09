@@ -22,7 +22,6 @@ export class ErrorComponent implements OnInit {
     .subscribe(newState => {
       newState.date = new Date();
       this.alert = newState;
-
       setTimeout(() => this.alert.show = false, 3000);
     });
   }

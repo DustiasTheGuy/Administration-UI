@@ -3,7 +3,6 @@ package index
 import (
 	"admin/controllers"
 	"admin/models/user"
-	"fmt"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -13,7 +12,7 @@ func RegisterController(c *fiber.Ctx) error {
 
 	if err := c.BodyParser(&body); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: "Unable to parse body",
+			Message: "please make sure you filled out every field",
 			Success: false,
 			Data:    nil,
 		})
@@ -27,14 +26,14 @@ func RegisterController(c *fiber.Ctx) error {
 
 	if err := user.Register(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "missing field or invalid data received",
 			Success: false,
 			Data:    nil,
 		})
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: "Your account has been created",
+		Message: "your account has been created",
 		Success: true,
 		Data:    nil,
 	})

@@ -29,12 +29,15 @@ export class FileUploadComponent implements OnInit {
   }
 
   public newFiles(files: any): void {
-    this.imageService.uploadImage(this.imageService.appendFiles(files, this.post_id, this.alone))
+    /*  
+      Add files to a FormData object so they can be parsed by the server
+    */ this.imageService.uploadImage(this.imageService.appendFiles(files, this.post_id, this.alone)) 
     .subscribe((response: HTTPResponse) => response.success 
     ? (() => {
-      response.data.forEach((img: IMAGE) => this.imageService.setImageUploadSubject(img));
+      response.data.forEach((img: IMAGE) => this.imageService.setImageUploadSubject(img)); 
+      // inform the state that new images have been uploaded
+      // rather than performing another GET request
       this.emitAlert(false, response.message);
-    })()
-    : this.emitAlert(true, response.message));
+    })() : this.emitAlert(true, response.message));
   }
 }

@@ -13,7 +13,7 @@ import (
 func GetUserController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -23,14 +23,14 @@ func GetUserController(c *fiber.Ctx) error {
 
 	if err := user.Find(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "unable to find user",
 			Success: false,
 			Data:    nil,
 		})
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: "",
+		Message: "found one user",
 		Success: true,
 		Data:    user,
 	})
@@ -39,7 +39,7 @@ func GetUserController(c *fiber.Ctx) error {
 func GetUsersController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -49,44 +49,59 @@ func GetUsersController(c *fiber.Ctx) error {
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "found zero users",
 			Success: false,
 			Data:    nil,
 		})
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: "",
+		Message: fmt.Sprintf("found %d users", len(users)),
 		Success: true,
 		Data:    users,
 	})
 }
 
-/*
-{
-	config: {
-		"editPassword": true
-	},
-	newData: {
-		"email": "8marko.kiavynhoc611251251251@openswan.net",
-		"password": "password12345",
-		"confirmPassword": "password12345"
-	},
-	oldData: {
-		"id": 4,
-		"email": "8marko.kiavynhoc6@openswan.net",
-		"created": "2021-04-01T04:00:40Z",
-		"admin": 0
+func SetAdminController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(3, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: "you lack the nessecary privileges to perform that action",
+			Success: false,
+			Data:    nil,
+		})
 	}
+
+	var user user.User
+
+	if err := c.BodyParser(&user); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: "invalid parameter received or user settings have been modified",
+			Success: false,
+			Data:    nil,
+		})
+	}
+
+	if err := user.SetAdmin(); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: "make sure you have filled out every field",
+			Success: false,
+			Data:    nil,
+		})
+	}
+
+	return c.JSON(controllers.HTTPResponse{
+		Message: "account updated",
+		Success: true,
+		Data:    nil,
+	})
 }
-*/
 
 func UpdateUserController(c *fiber.Ctx) error {
 	var data user.UpdateUserData
 
 	if err := c.BodyParser(&data); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "make sure you have filled out every field",
 			Success: false,
 			Data:    nil,
 		})
@@ -99,7 +114,7 @@ func UpdateUserController(c *fiber.Ctx) error {
 
 			if err := data.Update(); err != nil {
 				return c.JSON(controllers.HTTPResponse{
-					Message: fmt.Sprintf("%v", err),
+					Message: "invalid parameter received",
 					Success: false,
 					Data:    nil,
 				})
@@ -113,7 +128,7 @@ func UpdateUserController(c *fiber.Ctx) error {
 
 		} else {
 			return c.JSON(controllers.HTTPResponse{
-				Message: fmt.Sprintf("%v", err),
+				Message: "you lack the nessecary privileges to perform that action",
 				Success: false,
 				Data:    nil,
 			})
@@ -123,7 +138,7 @@ func UpdateUserController(c *fiber.Ctx) error {
 		// do whatever full permission granted
 		if err := data.Update(); err != nil {
 			return c.JSON(controllers.HTTPResponse{
-				Message: fmt.Sprintf("%v", err),
+				Message: "invalid parameter received",
 				Success: false,
 				Data:    nil,
 			})
@@ -141,7 +156,7 @@ func UpdateUserController(c *fiber.Ctx) error {
 func DeleteUserController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(3, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -151,7 +166,7 @@ func DeleteUserController(c *fiber.Ctx) error {
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "invalid parameter received",
 			Success: false,
 			Data:    nil,
 		})
@@ -160,7 +175,7 @@ func DeleteUserController(c *fiber.Ctx) error {
 	user := user.User{ID: id}
 	if err := user.Delete(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "unable to delete user",
 			Success: false,
 			Data:    nil,
 		})

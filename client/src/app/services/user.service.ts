@@ -17,26 +17,31 @@ export class UserService {
 
   public one(): Observable<HTTPResponse> {
     return this.httpClient.get<HTTPResponse>(`${this.config.serverAddr()}/profile`,
-    this.config.getHeaders())
+    this.config.getHeaders());
   }
 
   public all(): Observable<HTTPResponse> {
     return this.httpClient.get<HTTPResponse>(`${this.config.serverAddr()}/get-users`,
-    this.config.getHeaders())
+    this.config.getHeaders());
   }
 
   public update(data: any): Observable<HTTPResponse> {
     return this.httpClient.put<HTTPResponse>(`${this.config.serverAddr()}/update-user`, data,
-    this.config.getHeaders())
+    this.config.getHeaders());
   }
 
   public delete(id: number): Observable<HTTPResponse> {
     return this.httpClient.delete<HTTPResponse>(`${this.config.serverAddr()}/delete-user/${id}`,
-    this.config.getHeaders())
+    this.config.getHeaders());
   }
 
-  public oneWithEmail(email: string) {
+  public oneWithEmail(email: string): Observable<HTTPResponse> {
     return this.httpClient.get<HTTPResponse>(`${this.config.serverAddr()}/with/${email}`,
-    this.config.getHeaders())
+    this.config.getHeaders());
+  }
+
+  public setAdmin(data: any): Observable<HTTPResponse> {
+    return this.httpClient.put<HTTPResponse>(`${this.config.serverAddr()}/set-admin`, data,
+    this.config.getHeaders());
   }
 } 

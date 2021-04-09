@@ -3,7 +3,6 @@ package index
 import (
 	"admin/controllers"
 	"admin/models/user"
-	"fmt"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -13,7 +12,7 @@ func LoginController(c *fiber.Ctx) error {
 
 	if err := c.BodyParser(&body); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: "Unable to parse body",
+			Message: "please make sure you filled out every field",
 			Success: false,
 			Data:    nil,
 		})
@@ -28,14 +27,14 @@ func LoginController(c *fiber.Ctx) error {
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "session could not be created",
 			Success: false,
 			Data:    nil,
 		})
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: "",
+		Message: "session successfully created",
 		Success: true,
 		Data:    jwt,
 	})

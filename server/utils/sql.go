@@ -13,7 +13,7 @@ func OnResult(result sql.Result) error {
 	}
 
 	if RowsAffected == 0 {
-		return errors.New("invalid data or row not found")
+		return errors.New("zero changes has occured")
 	}
 
 	return nil

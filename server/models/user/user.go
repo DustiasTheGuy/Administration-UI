@@ -197,6 +197,23 @@ func (u *UpdateUserData) Update() error {
 	}
 }
 
+func (u *User) SetAdmin() error {
+	db := database.Connect(&database.SQLConfig{
+		User:     "root",
+		Password: "password",
+		Database: "isak_tech_admin",
+	})
+	defer db.Close()
+
+	result, err := db.Exec("UPDATE users SET admin = ? WHERE email = ?", u.Admin, u.Email)
+
+	if err != nil {
+		return err
+	}
+
+	return utils.OnResult(result)
+}
+
 type UpdateUserConfig struct {
 	EditPassword bool `json:"editPassword"`
 }

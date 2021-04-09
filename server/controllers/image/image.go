@@ -15,7 +15,7 @@ import (
 func UploadImageController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(1, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -26,7 +26,7 @@ func UploadImageController(c *fiber.Ctx) error {
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "unable to parse data",
 			Success: false,
 			Data:    nil,
 		})
@@ -36,7 +36,7 @@ func UploadImageController(c *fiber.Ctx) error {
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "invalid parameter received",
 			Success: false,
 			Data:    nil,
 		})
@@ -55,7 +55,7 @@ func UploadImageController(c *fiber.Ctx) error {
 		if ok { // if the file type is an image
 			if err := c.SaveFile(file, storage); err != nil { // save image to disk
 				return c.JSON(controllers.HTTPResponse{
-					Message: fmt.Sprintf("%v", err),
+					Message: "accepted files are JPEG, JPG, PNG",
 					Success: false,
 					Data:    nil,
 				})
@@ -68,7 +68,7 @@ func UploadImageController(c *fiber.Ctx) error {
 
 			if err := img.Save(false); err != nil {
 				return c.JSON(controllers.HTTPResponse{
-					Message: fmt.Sprintf("%v", err),
+					Message: "image could not be saved, please try again",
 					Success: false,
 					Data:    nil,
 				})
@@ -79,7 +79,7 @@ func UploadImageController(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: fmt.Sprintf("Saved %d files", len(images)),
+		Message: fmt.Sprintf("saved %d files", len(images)),
 		Success: true,
 		Data:    images,
 	})
@@ -88,7 +88,7 @@ func UploadImageController(c *fiber.Ctx) error {
 func DeleteOneImageController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(2, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -98,7 +98,7 @@ func DeleteOneImageController(c *fiber.Ctx) error {
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "invalid parameter received",
 			Success: false,
 			Data:    nil,
 		})
@@ -108,14 +108,14 @@ func DeleteOneImageController(c *fiber.Ctx) error {
 
 	if err := img.Delete(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "image could not be deleted, please try again",
 			Success: false,
 			Data:    nil,
 		})
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: fmt.Sprintf("Deleted Image: %d", id),
+		Message: fmt.Sprintf("deleted image: %d", id),
 		Success: true,
 		Data:    nil,
 	})
@@ -124,7 +124,7 @@ func DeleteOneImageController(c *fiber.Ctx) error {
 func GetImageIDsController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -134,14 +134,14 @@ func GetImageIDsController(c *fiber.Ctx) error {
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "unable to get images",
 			Success: false,
 			Data:    nil,
 		})
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: "",
+		Message: fmt.Sprintf("found %d images", len(ids)),
 		Success: true,
 		Data:    ids,
 	})
@@ -150,7 +150,7 @@ func GetImageIDsController(c *fiber.Ctx) error {
 func ImageGETController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -160,7 +160,7 @@ func ImageGETController(c *fiber.Ctx) error {
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "invalid parameter received",
 			Success: false,
 			Data:    nil,
 		})
@@ -170,14 +170,14 @@ func ImageGETController(c *fiber.Ctx) error {
 
 	if err := img.Find(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "unable to find image, image may have been deleted or moved",
 			Success: false,
 			Data:    nil,
 		})
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: "",
+		Message: fmt.Sprintf("image with id %d found", img.ID),
 		Success: true,
 		Data:    img,
 	})
@@ -186,7 +186,7 @@ func ImageGETController(c *fiber.Ctx) error {
 func ImagesGETController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -196,14 +196,14 @@ func ImagesGETController(c *fiber.Ctx) error {
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "zero images found",
 			Success: false,
 			Data:    nil,
 		})
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: "",
+		Message: fmt.Sprintf("found %d images", len(images)),
 		Success: true,
 		Data:    images,
 	})

@@ -33,6 +33,7 @@ func main() {
 
 	usersRouter.Get("/get-users", users.GetUsersController)
 	usersRouter.Put("/update-user", users.UpdateUserController)
+	usersRouter.Put("/set-admin", users.SetAdminController)
 	usersRouter.Delete("/delete-user/:id", users.DeleteUserController)
 	usersRouter.Get("/profile", users.GetUserController)
 

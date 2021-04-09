@@ -14,7 +14,7 @@ import (
 func PublishController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(2, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -25,7 +25,7 @@ func PublishController(c *fiber.Ctx) error {
 
 	if err := user.Find(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "unable to find user, user may have been deleted or user details may have been changed",
 			Success: false,
 			Data:    nil,
 		})
@@ -33,7 +33,7 @@ func PublishController(c *fiber.Ctx) error {
 
 	if err := c.BodyParser(&publishData); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "unable to parse data, please make sure you have filled out every field",
 			Success: false,
 			Data:    nil,
 		})
@@ -42,14 +42,14 @@ func PublishController(c *fiber.Ctx) error {
 	publishData.UserID = user.ID
 	if err := publishData.Save(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "unable to save post, make sure every field is filled out",
 			Success: false,
 			Data:    nil,
 		})
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: "",
+		Message: "post has been saved",
 		Success: true,
 		Data:    nil,
 	})
@@ -58,7 +58,7 @@ func PublishController(c *fiber.Ctx) error {
 func UpdateOnePostController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(2, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -68,7 +68,7 @@ func UpdateOnePostController(c *fiber.Ctx) error {
 
 	if err := c.BodyParser(&post); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "unable to parse body, make sure every field is filled out",
 			Success: false,
 			Data:    nil,
 		})
@@ -76,14 +76,14 @@ func UpdateOnePostController(c *fiber.Ctx) error {
 
 	if err := post.Update(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "update has failed, make sure every field is filled out correctly",
 			Success: false,
 			Data:    nil,
 		})
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: "Post Updated",
+		Message: "post has been updated",
 		Success: true,
 		Data:    post,
 	})
@@ -92,7 +92,7 @@ func UpdateOnePostController(c *fiber.Ctx) error {
 func DeleteOnePostController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(2, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -102,7 +102,7 @@ func DeleteOnePostController(c *fiber.Ctx) error {
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "invalid parameter received, post may have been modified or deleted",
 			Success: false,
 			Data:    nil,
 		})
@@ -111,14 +111,14 @@ func DeleteOnePostController(c *fiber.Ctx) error {
 	post := post.Post{ID: id}
 	if err := post.Delete(); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "post could not be deleted, it may have been moved or already delted",
 			Success: false,
 			Data:    nil,
 		})
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: "Post Deleted",
+		Message: "post has been deleted",
 		Success: true,
 		Data:    nil,
 	})
@@ -127,7 +127,7 @@ func DeleteOnePostController(c *fiber.Ctx) error {
 func FindAllPostsController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -137,14 +137,14 @@ func FindAllPostsController(c *fiber.Ctx) error {
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "found zero posts",
 			Success: false,
 			Data:    nil,
 		})
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: "",
+		Message: fmt.Sprintf("found %d posts", len(posts)),
 		Success: true,
 		Data:    posts,
 	})
@@ -153,7 +153,7 @@ func FindAllPostsController(c *fiber.Ctx) error {
 func FindOnePostController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -163,7 +163,7 @@ func FindOnePostController(c *fiber.Ctx) error {
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "invalid parameter received",
 			Success: false,
 			Data:    nil,
 		})
@@ -173,7 +173,7 @@ func FindOnePostController(c *fiber.Ctx) error {
 	post.Find()
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: "",
+		Message: "found one post",
 		Success: true,
 		Data:    post,
 	})

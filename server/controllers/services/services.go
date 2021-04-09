@@ -52,7 +52,7 @@ func settingsSetup(s string) *processConfig {
 func GetProcessesController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -69,7 +69,7 @@ func GetProcessesController(c *fiber.Ctx) error {
 func StartServiceController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(3, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
@@ -80,7 +80,7 @@ func StartServiceController(c *fiber.Ctx) error {
 	for i := 0; i < len(processes); i++ {
 		if processes[i].Service.Label == serviceParam {
 			return c.JSON(controllers.HTTPResponse{
-				Message: "Process is already running",
+				Message: "process is already running",
 				Success: false,
 				Data:    nil,
 			})
@@ -113,14 +113,14 @@ func StartServiceController(c *fiber.Ctx) error {
 		processes = append(processes, newProcess)
 
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("Process Started: %d", *s.ProcessID),
+			Message: fmt.Sprintf("process started: %d", *s.ProcessID),
 			Success: true,
 			Data:    newProcess,
 		})
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: "Invalid Parameter Received",
+		Message: "invalid parameter received",
 		Success: false,
 		Data:    nil,
 	})
@@ -130,18 +130,18 @@ func StartServiceController(c *fiber.Ctx) error {
 func StopServiceController(c *fiber.Ctx) error {
 	if err := utils.PermissionApproval(3, c.Get("attained")); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "you lack the nessecary privileges to perform that action",
 			Success: false,
 			Data:    nil,
 		})
 	}
 
-	fmt.Printf("Stop - %s\n", c.Params("pid"))
+	//fmt.Printf("Stop - %s\n", c.Params("pid"))
 	pid, err := strconv.ParseInt(c.Params("pid"), 10, 64)
 
 	if err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "invalid parameter received",
 			Success: false,
 			Data:    nil,
 		})
@@ -149,14 +149,14 @@ func StopServiceController(c *fiber.Ctx) error {
 
 	if err := stopService(int(pid)); err != nil {
 		return c.JSON(controllers.HTTPResponse{
-			Message: fmt.Sprintf("%v", err),
+			Message: "process may have already been stopped",
 			Success: false,
 			Data:    nil,
 		})
 	}
 
 	return c.JSON(controllers.HTTPResponse{
-		Message: fmt.Sprintf("Stopped Process: %d", pid),
+		Message: fmt.Sprintf("stopped process: %d", pid),
 		Success: true,
 		Data:    nil,
 	})

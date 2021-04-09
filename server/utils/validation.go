@@ -2,7 +2,6 @@ package utils
 
 import (
 	"errors"
-	"fmt"
 	"regexp"
 	"strconv"
 )
@@ -18,7 +17,7 @@ func ValidateEmail(e string) bool {
 }
 
 func PermissionApproval(required int64, attainedAsString string) error {
-	fmt.Printf("Required: %d\nAttained: %s\n", required, attainedAsString)
+	//	fmt.Printf("Required: %d\nAttained: %s\n", required, attainedAsString)
 
 	attained, err := strconv.ParseInt(attainedAsString, 10, 64)
 
@@ -30,6 +29,6 @@ func PermissionApproval(required int64, attainedAsString string) error {
 		return nil
 	}
 
-	fmt.Println("Permission Denied")
+	//	fmt.Println("Permission Denied")
 	return errors.New("you do not have the nessecary privileges to perform that action")
 }
