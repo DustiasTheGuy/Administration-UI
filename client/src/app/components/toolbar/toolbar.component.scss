@@ -4,15 +4,14 @@ nav {
     display: flex;
     justify-content: space-between;
     height: 70px;
-    transition: box-shadow 200ms ease;
-    
-    &:focus-within {
-        box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
-    }
+    margin-bottom: 50px;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
 
     .search {
         flex-grow: 1;
         height: 100%;
+        z-index: inherit;
 
         .search-box {
             width: 100%;
@@ -25,6 +24,8 @@ nav {
                 width: 100%;
                 outline: none;
                 font-size: 18px;
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
             }
         }
     }
@@ -34,12 +35,116 @@ nav {
         align-items: center;
         justify-content: center;
         padding: 0 30px;
+        position: relative; 
+        z-index: inherit;
         
         .toggle {
+            cursor: pointer;
+            
             i {
                 font-size: 1.6rem;
                 color: rgb(85, 85, 85);
             }
+
+            &:hover {
+                i {
+                    color: rgb(114, 114, 114);
+                }
+            }
+        }
+
+
+        .notification-list.open {
+            pointer-events: auto;
+            opacity: 1;
+        }
+
+        .notification-list {
+            position: fixed;
+            background-color: #fff;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 300px;
+            overflow: hidden;
+            z-index: 11;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+            transition: all 200ms linear;
+            opacity: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            pointer-events: none;
+
+            .notification.isEmpty {
+                text-align: center;
+                display: block;
+                &:hover {
+                    background-color: #fff;
+                }
+
+                p {
+                    padding: 2em 1em;
+                    max-width: 100% !important;
+                }
+            }
+
+            .notification {
+                display: flex;
+                justify-content: space-between;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: rgb(231, 231, 231);
+                }
+
+                p {
+                    margin: 0;
+                    text-transform: capitalize;
+                    padding: 1em;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    &:first-of-type {
+                        max-width: 70%;
+                        text-overflow: ellipsis;
+                    }
+                }
+
+                &:not(:last-of-type) {
+                    border-bottom: 1px solid rgb(228, 228, 228);
+                }
+            }
+
+            .notification.error {
+                p:first-child {
+                    i {
+                        color: #D55672;
+                    }
+                }
+            }
+            .notification.success {
+                p:first-child {
+                    i {
+                        color: #58BC82;
+                    }
+                }
+            }
         }
     }
+}
+
+.filler.visible {
+    pointer-events: auto;
+    background-color: rgba(59, 59, 59, 0.384);
+}
+
+.filler {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0);
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    transition: all 200ms linear;
 }

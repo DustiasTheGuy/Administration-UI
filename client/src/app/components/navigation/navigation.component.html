@@ -31,7 +31,8 @@
 </div>
 
 <div class="toggle-aside" (click)="asideOpen = !asideOpen ? true : false">
-    <i class="fas fa-bars"></i>  
+    <i *ngIf="!asideOpen" class="fas fa-bars"></i>  
+    <i *ngIf="asideOpen" class="fas fa-times"></i>
 </div>
 
 <div class="filler" [ngClass]="{ 'visible': asideOpen }" (click)="asideOpen = false"></div>

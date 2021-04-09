@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ServerService } from '../../services/server.service';
-import { HTTPResponse } from '../../interfaces/response';
-import { StateService } from '../../services/state.service';
+import { ServerService } from 'src/app/services/server.service';
+import { HTTPResponse } from 'src/app/interfaces/response';
+import { StateService } from 'src/app/services/state.service';
+import { iServer } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-server-management',
@@ -10,6 +11,32 @@ import { StateService } from '../../services/state.service';
 })
 export class ServerManagementComponent implements OnInit {
   public processes: any[] = [];
+  public servers: iServer[] = [
+    { 
+      serviceName: 'isak_tech', 
+      serviceNameShort: 'IT', 
+      position: {
+        x: 100, 
+        y: 200
+      } 
+    },
+    {
+       serviceName: 'portal', 
+       serviceNameShort: 'PR', 
+       position: {
+        x: 200, 
+        y: 400 
+       }
+    },
+    { 
+      serviceName: 'paste', 
+      serviceNameShort: 'PS', 
+      position: {
+        x: 160,
+        y: 342
+      }
+    }
+  ];
 
   constructor(
     private stateService: StateService,
@@ -17,14 +44,29 @@ export class ServerManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProcesses();
+    this.parseOld();
   }
 
-  emitAlert(show: boolean, msg: string, err: boolean): void {
+  private parseOld(): void {
+    let data = localStorage.getItem('s_l');
+
+    if(data != null) {
+      this.servers = JSON.parse(data);
+    }
+  }
+
+  private emitAlert(show: boolean, msg: string, err: boolean): void {
     this.stateService.setErrorSubject({
       show: show,
       error: err,
       text: msg
     });
+  }
+
+  public onDrop(data: any, index: number): void {
+    this.servers[index].position.x += data.distance.x;
+    this.servers[index].position.y += data.distance.y;
+    localStorage.setItem('s_l', JSON.stringify(this.servers));
   }
 
   start(process: string): void {

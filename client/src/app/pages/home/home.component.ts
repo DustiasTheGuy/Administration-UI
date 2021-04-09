@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.tokenValid() 
-    ? this.router.navigate(["/settings"])
+    ? this.router.navigate(["/dashboard"])
     : this.router.navigate(["/sign-in"]);
   }
 }

@@ -7,7 +7,9 @@ import (
 	"admin/controllers/post"
 	"admin/controllers/services"
 	"admin/controllers/users"
+	"admin/models/user"
 	"admin/utils"
+	"fmt"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
@@ -73,6 +75,11 @@ func jwtMiddleware(c *fiber.Ctx) error {
 		})
 	}
 
-	c.Request().Header.Add("email", claim.Email)
+	user := user.User{Email: claim.Email}
+	user.Find()
+
+	c.Request().Header.Add("email", user.Email)
+	c.Request().Header.Add("attained", fmt.Sprintf("%d", user.Admin))
+
 	return c.Next()
 }

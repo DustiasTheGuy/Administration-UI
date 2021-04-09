@@ -8,8 +8,6 @@ import { iAlert } from '../../interfaces/alert';
   styleUrls: ['./alerts.component.scss']
 })
 export class ErrorComponent implements OnInit {
-  private alertStore: iAlert[] = [];
-
   public alert: iAlert = {
     show: false,
     error: false,
@@ -22,9 +20,10 @@ export class ErrorComponent implements OnInit {
   ngOnInit(): void {
     this.stateService.getErrorSubject()
     .subscribe(newState => {
-      this.alertStore.push(this.alert);
       newState.date = new Date();
       this.alert = newState;
+
+      setTimeout(() => this.alert.show = false, 3000);
     });
   }
 }

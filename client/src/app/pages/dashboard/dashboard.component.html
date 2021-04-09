@@ -1,3 +1,10 @@
 <div class="page">
-    <h1>Dashboard</h1>
-</div>
+    <header *ngIf="user">
+        <h1>Dashboard</h1>
+        <!-- <p>{{ user.email.split('@')[0] }}</p> -->
+    </header>
+
+    <div class="charts">
+        <div *ngFor="let chart of charts" echarts [options]="chart"></div>
+    </div>
+</div>  

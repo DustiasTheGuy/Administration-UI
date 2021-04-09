@@ -6,8 +6,25 @@
     </div>
 
     <div class="notifications">
-        <div class="toggle">
+        <div class="toggle" (click)="showNotifications = !showNotifications ? true : false">
             <i class="fas fa-bell"></i>
+        </div>
+        <div class="notification-list" [ngClass]="{ 'open': showNotifications }">
+            <div 
+            class="notification" 
+            [ngClass]="{ 'error': n.error, 'success': !n.error }"
+            *ngFor="let n of getNotifications(); let i = index" 
+            (click)="removeNotification(i)">
+                <p>{{ n.text }}</p>
+                <p>{{ n.date | date: 'shortTime' }}</p>
+            </div>
+
+            <div class="notification isEmpty" *ngIf="getNotifications().length <= 0">
+                <p>Ops it's Empty</p>
+            </div>
         </div>
     </div>
 </nav>
+
+
+<div class="filler" (click)="showNotifications = false" [ngClass]="{ 'visible': showNotifications }"></div>

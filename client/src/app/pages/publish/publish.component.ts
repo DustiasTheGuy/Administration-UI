@@ -20,6 +20,7 @@ export class PublishComponent implements OnInit {
   public imageIDs?: number[];
   public categories: string[];
   public loading: boolean = false;
+  public loaders: number = 0;
 
   constructor(
     private imageService: ImageService,
@@ -37,11 +38,18 @@ export class PublishComponent implements OnInit {
     const rnn = ml5.charRNN('/assets/models/woolf');
 
     rnn.generate(config, (err: Error, results: any) => {
+      this.loaders--;
+
+      if(this.loaders <= 0) {
+        this.loading = false;
+      }
+
       switch(config.updateField) {
         case 't': return this.formData.title = results.sample.substring(2, results.sample.length);
         case 'b': return this.formData.body = results.sample.substring(2, results.sample.length);
         default: return;
       }
+      
     });
   }
 
@@ -96,6 +104,8 @@ export class PublishComponent implements OnInit {
 
   public autoFillForm(): void {    
     this.loading = true;
+    this.loaders = 2;
+
     this.generateText({ 
       seed: 'A woman must have money and a room of her own if she is to write fiction.', 
       length: 60, 
@@ -109,7 +119,5 @@ export class PublishComponent implements OnInit {
       temperature: 0.5, 
       updateField: 'b' 
     });
-    
-    this.loading = false;
   }
 }

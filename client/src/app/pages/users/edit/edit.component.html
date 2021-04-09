@@ -1,4 +1,6 @@
 <div class="page" *ngIf="user">
-    <h1>Edit User</h1>
+    <header>
+        <h1>Edit User</h1>
+    </header>
     <app-edit-user-form [user]="user" (onSuccess)="onUpdate($event)"></app-edit-user-form>
 </div>

@@ -1,5 +1,7 @@
 <div class="page">
-    <h1>Publish</h1>
+    <header>
+        <h1>Publish</h1>
+    </header>
     
     <section>
         <form>
@@ -24,6 +26,9 @@
                 <textarea type="text" name="body" id="body" [(ngModel)]="formData.body"></textarea>
                 <div *ngIf="loading" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
             </div>
+
+            <p *ngIf="loading">Loading...</p>
+
             <div class="button-group">
                 <button matRipple type="button" (click)="autoFillForm()" [disabled]="loading">Autofill</button>
                 <button matRipple type="button" (click)="publish()">Publish</button>

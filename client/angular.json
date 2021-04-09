@@ -35,7 +35,9 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/table.scss",
+              "src/form.scss"
             ],
             "scripts": [
               "./node_modules/ml5/dist/ml5.min.js"

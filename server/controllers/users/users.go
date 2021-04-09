@@ -3,6 +3,7 @@ package users
 import (
 	"admin/controllers"
 	"admin/models/user"
+	"admin/utils"
 	"fmt"
 	"strconv"
 
@@ -17,6 +18,14 @@ type UpdateUserData struct {
 }
 
 func GetUserController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	user := user.User{Email: c.Get("email")}
 
 	if err := user.Find(); err != nil {
@@ -35,6 +44,14 @@ func GetUserController(c *fiber.Ctx) error {
 }
 
 func GetUsersController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	users, err := user.All()
 
 	if err != nil {
@@ -53,8 +70,15 @@ func GetUsersController(c *fiber.Ctx) error {
 }
 
 func UpdateUserController(c *fiber.Ctx) error {
-	var body UpdateUserData
+	if err := utils.PermissionApproval(3, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
 
+	var body UpdateUserData
 	if err := c.BodyParser(&body); err != nil {
 		return c.JSON(controllers.HTTPResponse{
 			Message: fmt.Sprintf("%v", err),
@@ -65,7 +89,6 @@ func UpdateUserController(c *fiber.Ctx) error {
 
 	body.User.Password = body.Password
 	body.User.ConfirmPassword = body.ConfirmPassword
-	fmt.Println(body)
 
 	if err := body.User.Update(body.UpdatePassword); err != nil {
 		return c.JSON(controllers.HTTPResponse{
@@ -83,6 +106,14 @@ func UpdateUserController(c *fiber.Ctx) error {
 }
 
 func DeleteUserController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(3, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 
 	if err != nil {

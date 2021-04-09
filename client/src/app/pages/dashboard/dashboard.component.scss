@@ -1,0 +1,17 @@
+.page {
+
+    h1 {
+        margin-bottom: 0;
+    }
+    
+    .charts {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+
+        div {
+            width: 100%;
+            box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+        }
+    }
+}

@@ -13,6 +13,14 @@ import (
 )
 
 func UploadImageController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(1, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	var images []image.IMG
 	mpartForm, err := c.MultipartForm()
 
@@ -78,6 +86,14 @@ func UploadImageController(c *fiber.Ctx) error {
 }
 
 func DeleteOneImageController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(2, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 
 	if err != nil {
@@ -106,6 +122,14 @@ func DeleteOneImageController(c *fiber.Ctx) error {
 }
 
 func GetImageIDsController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	ids, err := image.GetIDs()
 
 	if err != nil {
@@ -124,6 +148,14 @@ func GetImageIDsController(c *fiber.Ctx) error {
 }
 
 func ImageGETController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 
 	if err != nil {
@@ -152,6 +184,14 @@ func ImageGETController(c *fiber.Ctx) error {
 }
 
 func ImagesGETController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	images, err := image.GetAll()
 
 	if err != nil {

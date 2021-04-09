@@ -4,6 +4,7 @@ import (
 	"admin/controllers"
 	"admin/models/post"
 	"admin/models/user"
+	"admin/utils"
 	"fmt"
 	"strconv"
 
@@ -11,6 +12,14 @@ import (
 )
 
 func PublishController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(2, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	var publishData post.Post
 	user := user.User{Email: c.Get("email")}
 
@@ -47,6 +56,14 @@ func PublishController(c *fiber.Ctx) error {
 }
 
 func UpdateOnePostController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(2, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	var post post.Post
 
 	if err := c.BodyParser(&post); err != nil {
@@ -73,6 +90,14 @@ func UpdateOnePostController(c *fiber.Ctx) error {
 }
 
 func DeleteOnePostController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(2, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 
 	if err != nil {
@@ -100,6 +125,14 @@ func DeleteOnePostController(c *fiber.Ctx) error {
 }
 
 func FindAllPostsController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	posts, err := post.All()
 
 	if err != nil {
@@ -118,6 +151,14 @@ func FindAllPostsController(c *fiber.Ctx) error {
 }
 
 func FindOnePostController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 
 	if err != nil {

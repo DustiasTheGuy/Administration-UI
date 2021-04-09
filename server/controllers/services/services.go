@@ -2,6 +2,7 @@ package services
 
 import (
 	"admin/controllers"
+	"admin/utils"
 	"fmt"
 	"os"
 	"strconv"
@@ -49,6 +50,14 @@ func settingsSetup(s string) *processConfig {
 }
 
 func GetProcessesController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(0, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	return c.JSON(controllers.HTTPResponse{
 		Message: "",
 		Success: true,
@@ -58,6 +67,14 @@ func GetProcessesController(c *fiber.Ctx) error {
 
 // StartService starts a service with its service label
 func StartServiceController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(3, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
+
 	serviceParam := c.Params("service")
 
 	for i := 0; i < len(processes); i++ {
@@ -111,6 +128,13 @@ func StartServiceController(c *fiber.Ctx) error {
 
 // StopService stop a service with its pid
 func StopServiceController(c *fiber.Ctx) error {
+	if err := utils.PermissionApproval(3, c.Get("attained")); err != nil {
+		return c.JSON(controllers.HTTPResponse{
+			Message: fmt.Sprintf("%v", err),
+			Success: false,
+			Data:    nil,
+		})
+	}
 
 	fmt.Printf("Stop - %s\n", c.Params("pid"))
 	pid, err := strconv.ParseInt(c.Params("pid"), 10, 64)
