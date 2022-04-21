@@ -1,15 +1,9 @@
 ## Admin User Interface
 
-```go
+```bash
 
-package utils
-
-func GetClaims() JwtWrapper {
-	return JwtWrapper{
-		SecretKey:       "secret_key",
-		Issuer:          "someone",
-		ExpirationHours: 24,
-	}
-}
+DATABASE_USER=
+DATABASE_PASSWORD=
+DATABASE=
 
 ```

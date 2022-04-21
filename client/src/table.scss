@@ -1,45 +1,47 @@
 .table {
-    width: 100%;
-    box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
-    border-radius: 10px;
-    background-color: #fff;
-    
-    .table-row {
-        display: flex;
-        justify-content: space-between;
-        text-align: left;
-        position: relative;
-        padding: 1em;
-        outline: none;
+	width: 100%;
+	box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
+		0 3px 14px 2px rgb(0 0 0 / 12%);
+	border-radius: 10px;
+	background-color: #fff;
 
-        &:not(:last-of-type) {
-            border-bottom: 1px solid rgb(233, 233, 233);
-        }
+	.table-row {
+		display: flex;
+		justify-content: space-between;
+		text-align: left;
+		position: relative;
+		padding: 1em;
+		outline: none;
 
-        .edit-post {
-            position: absolute;
-        }
-        
-        .table-data {
-            width: 100%;
-        }
-    }
+		&:not(:last-of-type) {
+			border-bottom: 1px solid rgb(233, 233, 233);
+		}
 
-    .table-head {
-        border-bottom: 1px solid rgb(233, 233, 233);
-        .table-data {
-            font-size: 12px;
-            font-weight: 500;
-        }
-    }
-    
-    .table-body {
-        .table-row {
-            cursor: pointer;
+		.edit-post {
+			position: absolute;
+		}
 
-            &:hover {
-                opacity: .2;
-            }
-        }
-    }
+		.table-data {
+			width: 100%;
+		}
+	}
+
+	.table-head {
+		border-bottom: 1px solid rgb(233, 233, 233);
+
+		.table-data {
+			font-size: 12px;
+			font-weight: 500;
+		}
+	}
+
+	.table-body {
+		.table-row {
+			cursor: pointer;
+
+			&:hover {
+				opacity: 0.2;
+			}
+		}
+	}
 }

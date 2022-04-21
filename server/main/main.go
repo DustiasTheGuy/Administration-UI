@@ -14,9 +14,14 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	if err := godotenv.Load(); err != nil {
+		panic(err)
+	}
+
 	app := fiber.New(fiber.Config{
 		Immutable: true,
 	})

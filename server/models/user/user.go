@@ -17,11 +17,7 @@ type User struct {
 }
 
 func (u *User) Login() (string, error) {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech_admin",
-	})
+	db := database.Connect(database.GetConfig())
 	defer db.Close()
 
 	var user User
@@ -62,11 +58,7 @@ func (u *User) Register() error {
 		return errors.New("email validation failed")
 	}
 
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech_admin",
-	})
+	db := database.Connect(database.GetConfig())
 	defer db.Close()
 
 	hash, err := utils.HashPassword(u.Password)
@@ -86,11 +78,7 @@ func (u *User) Register() error {
 
 // find one row with email
 func (u *User) Find() error {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech_admin",
-	})
+	db := database.Connect(database.GetConfig())
 	defer db.Close()
 
 	row := db.QueryRow("SELECT id, created, admin FROM users WHERE email = ?", u.Email)
@@ -108,11 +96,7 @@ func (u *User) Find() error {
 
 // find all users
 func All() ([]User, error) {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech_admin",
-	})
+	db := database.Connect(database.GetConfig())
 	defer db.Close()
 
 	rows, err := db.Query("SELECT id, email, created, admin FROM users")
@@ -141,11 +125,7 @@ func All() ([]User, error) {
 
 // delete a single row in database
 func (u *User) Delete() error {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech_admin",
-	})
+	db := database.Connect(database.GetConfig())
 	defer db.Close()
 
 	result, err := db.Exec("DELETE FROM users WHERE id = ?", u.ID)
@@ -159,11 +139,7 @@ func (u *User) Delete() error {
 
 // update a single row
 func (u *UpdateUserData) Update() error {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech_admin",
-	})
+	db := database.Connect(database.GetConfig())
 	defer db.Close()
 
 	if u.Config.EditPassword {
@@ -198,11 +174,7 @@ func (u *UpdateUserData) Update() error {
 }
 
 func (u *User) SetAdmin() error {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech_admin",
-	})
+	db := database.Connect(database.GetConfig())
 	defer db.Close()
 
 	result, err := db.Exec("UPDATE users SET admin = ? WHERE email = ?", u.Admin, u.Email)

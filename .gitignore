@@ -1,4 +1,7 @@
-/server/utils/claims.go
-/client/node_modules
-/client/.editorconfig
-/desktop.ini
+# Client
+client/node_modules
+client/.editorconfig
+
+# Server
+server/utils/claims.go
+server/.env

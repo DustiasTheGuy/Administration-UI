@@ -18,11 +18,8 @@ type IMG struct {
 
 // creates a new row in database
 func (i *IMG) Save(updateThumbnail bool) error {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech",
-	})
+	db := database.Connect(database.GetConfig())
+
 	defer db.Close()
 
 	if len(i.URL) < 10 {
@@ -68,11 +65,8 @@ func (i *IMG) Save(updateThumbnail bool) error {
 
 // delete a row in database
 func (i *IMG) Delete() error {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech",
-	})
+	db := database.Connect(database.GetConfig())
+
 	defer db.Close()
 
 	result, err := db.Exec("DELETE FROM images WHERE id = ?", i.ID)
@@ -86,11 +80,8 @@ func (i *IMG) Delete() error {
 
 // find onw row with id
 func (i *IMG) Find() error {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech",
-	})
+	db := database.Connect(database.GetConfig())
+
 	defer db.Close()
 
 	row := db.QueryRow("SELECT * FROM images WHERE id = ?", i.ID)
@@ -110,11 +101,8 @@ func (i *IMG) Find() error {
 
 // select column id from images
 func GetIDs() ([]int64, error) {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech",
-	})
+	db := database.Connect(database.GetConfig())
+
 	defer db.Close()
 
 	rows, err := db.Query("SELECT id FROM IMAGES")
@@ -139,11 +127,8 @@ func GetIDs() ([]int64, error) {
 
 // select * from images
 func GetAll() ([]IMG, error) {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech",
-	})
+	db := database.Connect(database.GetConfig())
+
 	defer db.Close()
 
 	var images []IMG
@@ -174,11 +159,8 @@ func GetAll() ([]IMG, error) {
 
 // select all images with post_id
 func GetMany(postID int64) ([]IMG, error) {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech",
-	})
+	db := database.Connect(database.GetConfig())
+
 	defer db.Close()
 
 	var images []IMG

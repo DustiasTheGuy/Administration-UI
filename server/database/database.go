@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"os"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -31,4 +32,12 @@ func Connect(config *SQLConfig) *sql.DB {
 	db.SetMaxIdleConns(10)                 // connection pool, so close the connection when it's not being used anymore
 
 	return db // can be used to execute SQL queries
+}
+
+func GetConfig() *SQLConfig {
+	return &SQLConfig{
+		User:     os.Getenv("DATABASE_USER"),
+		Password: os.Getenv("DATABASE_PASSWORD"),
+		Database: os.Getenv("DATABASE"),
+	}
 }

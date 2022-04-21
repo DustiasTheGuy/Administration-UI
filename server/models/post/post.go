@@ -32,11 +32,8 @@ func (p *Post) Save() error {
 		return errors.New("thumbnail must be a positive number")
 	}
 
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech",
-	})
+	db := database.Connect(database.GetConfig())
+
 	defer db.Close()
 
 	result, err := db.Exec("INSERT INTO posts (post, title, category, user_id, thumbnail) VALUES(?, ?, ?, ?, ?)",
@@ -56,11 +53,7 @@ func (p *Post) Save() error {
 
 // find a single row in database with id
 func (p *Post) Find() error {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech",
-	})
+	db := database.Connect(database.GetConfig())
 	defer db.Close()
 
 	row := db.QueryRow("SELECT * FROM posts WHERE id = ?", p.ID)
@@ -84,11 +77,7 @@ func (p *Post) Find() error {
 
 // find all rows in database
 func All() ([]Post, error) {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech",
-	})
+	db := database.Connect(database.GetConfig())
 	defer db.Close()
 
 	rows, err := db.Query("SELECT * FROM posts")
@@ -123,11 +112,7 @@ func All() ([]Post, error) {
 
 // delete one row in database with id
 func (p *Post) Delete() error {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech",
-	})
+	db := database.Connect(database.GetConfig())
 	defer db.Close()
 
 	result, err := db.Exec("DELETE FROM posts WHERE id = ?", p.ID)
@@ -141,11 +126,7 @@ func (p *Post) Delete() error {
 
 // update one row in database [post, title, category, thumbnail, archived] with id
 func (p *Post) Update() error {
-	db := database.Connect(&database.SQLConfig{
-		User:     "root",
-		Password: "password",
-		Database: "isak_tech",
-	})
+	db := database.Connect(database.GetConfig())
 	defer db.Close()
 
 	result, err := db.Exec(

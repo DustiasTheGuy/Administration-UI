@@ -20,6 +20,14 @@ type JwtClaim struct {
 	jwt.StandardClaims
 }
 
+func GetClaims() JwtWrapper {
+	return JwtWrapper{
+		SecretKey:       "secret_key",
+		Issuer:          "someone",
+		ExpirationHours: 24,
+	}
+}
+
 // GenerateToken generates a jwt token
 func (j *JwtWrapper) GenerateToken(email string) (signedToken string, err error) {
 	claims := &JwtClaim{

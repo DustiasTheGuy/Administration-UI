@@ -3,22 +3,24 @@ import { Observable, Subject } from 'rxjs';
 import { iAlert } from '../interfaces/alert';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root',
 })
 export class StateService {
-  private errorSubject = new Subject<iAlert>();  
-  constructor() { }
+	private errorSubject = new Subject<iAlert>();
 
-  public setErrorSubject(newState: iAlert) {
-    this.errorSubject.next(newState)
-  }
+	constructor() {}
 
-  public getErrorSubject(): Observable<iAlert> {
-    return this.errorSubject.asObservable();
-  }
+	public setErrorSubject(newState: iAlert) {
+		this.errorSubject.next(newState);
+	}
 
-  public validateEmail(email: string): boolean {
-    let regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    return regex.test(email);
-  }
+	public getErrorSubject(): Observable<iAlert> {
+		return this.errorSubject.asObservable();
+	}
+
+	public validateEmail(email: string): boolean {
+		let regex =
+			/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+		return regex.test(email);
+	}
 }
