@@ -19,7 +19,7 @@
 		"@angular/forms": "~11.0.0",
 		"@angular/material": "^14.1.2",
 		"@angular/platform-browser": "~11.0.0",
-		"@angular/platform-browser-dynamic": "~11.0.0",
+		"@angular/platform-browser-dynamic": "~14.1.2",
 		"@angular/router": "~14.1.2",
 		"@auth0/angular-jwt": "^5.0.2",
 		"angular": "^1.8.3",
