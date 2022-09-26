@@ -33,7 +33,7 @@
 		"@angular-devkit/build-angular": "~14.2.2",
 		"@angular/cli": "~14.1.2",
 		"@angular/compiler-cli": "~11.0.0",
-		"@types/node": "^18.7.18",
+		"@types/node": "^18.7.21",
 		"codelyzer": "^6.0.0",
 		"karma": "~6.4.0",
 		"karma-chrome-launcher": "~3.1.0",
