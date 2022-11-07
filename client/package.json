@@ -20,7 +20,7 @@
 		"@angular/material": "^14.2.2",
 		"@angular/platform-browser": "~14.2.3",
 		"@angular/platform-browser-dynamic": "~14.1.2",
-		"@angular/router": "~14.2.6",
+		"@angular/router": "~14.2.9",
 		"@auth0/angular-jwt": "^5.0.2",
 		"angular": "^1.8.3",
 		"echarts": "^5.4.0",
