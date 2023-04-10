@@ -8,5 +8,5 @@ require (
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/gofiber/fiber/v2 v2.40.1
 	github.com/joho/godotenv v1.4.0
-	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
+	golang.org/x/crypto v0.8.0
 )
