@@ -1,60 +1,60 @@
 .colors {
-    color: #3A3335;
-    color: #D55672;
-    color: #2274A5;
-    color: #58BC82;
-    color: #FCFFFC;
+	color: #3a3335;
+	color: #d55672;
+	color: #2274a5;
+	color: #58bc82;
+	color: #fcfffc;
 }
 
 .alert {
-    position: fixed;
-    left: 350px;
-    right: 50px;
-    top: 50px;
-    padding: 40px;
-    z-index: 1;
-    opacity: 0;
-    transition: all 200ms linear;
-    transform: scale(0.2);
-    text-align: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    cursor: pointer;
-    pointer-events: none;
-    color: #FCFFFC;
-    
-    p {
-        margin: 0;
-    }
+	position: fixed;
+	left: 350px;
+	right: 50px;
+	top: 50px;
+	padding: 40px;
+	z-index: 1;
+	opacity: 0;
+	transition: all 200ms linear;
+	transform: scale(0.2);
+	text-align: center;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+	cursor: pointer;
+	pointer-events: none;
+	color: #fcfffc;
+
+	p {
+		margin: 0;
+	}
 }
 
 .alert.error {
-    background-color:#D55672;
+	background-color: #d55672;
 }
 
 .alert.success {
-    background-color:#58BC82;
+	background-color: #58bc82;
 }
 
 .alert.show {
-    opacity: 1;
-    transform: scale(1);
-    pointer-events: auto;
+	opacity: 1;
+	transform: scale(1);
+	pointer-events: auto;
 
-    &:hover {
-        opacity: .67 !important;
-    }
+	&:hover {
+		opacity: 0.67 !important;
+	}
 }
 
-@media only screen and(max-width: 999px) {
-    .alert {
-        left: unset;
-        right: unset;
-        bottom: unset;
-        width: 100%;
-        transform: scale(0.2);
-    }
+@media only screen and (max-width: 999px) {
+	.alert {
+		left: unset;
+		right: unset;
+		bottom: unset;
+		width: 100%;
+		transform: scale(0.2);
+	}
 
-    .alert.show {
-        transform: scale(1);
-    }
+	.alert.show {
+		transform: scale(1);
+	}
 }

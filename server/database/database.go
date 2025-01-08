@@ -36,8 +36,8 @@ func Connect(config *SQLConfig) *sql.DB {
 
 func GetConfig() *SQLConfig {
 	return &SQLConfig{
-		User:     os.Getenv("DATABASE_USER"),
-		Password: os.Getenv("DATABASE_PASSWORD"),
-		Database: os.Getenv("DATABASE"),
+		User:     os.Getenv("MYSQL_USER"),
+		Password: os.Getenv("MYSQL_PASSWORD"),
+		Database: os.Getenv("MYSQL_DATABASE"),
 	}
 }

@@ -1,6 +1,7 @@
 # Client
 client/node_modules
 client/.editorconfig
+client/.angular
 
 # Server
 server/utils/claims.go
